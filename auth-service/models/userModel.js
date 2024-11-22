@@ -1,5 +1,4 @@
 const db = require('../db/dbConfig');
-
 const UserModel = {
 createUser: (username, password, callback) => {
     const query = 'INSERT INTO users (username, password) VALUES (?, ?)';

@@ -1,12 +1,25 @@
 const UserModel = require('../models/userModel');
 
 const AuthService = {
-registerUser: (username, password, callback) => {
-    UserModel.createUser(username, password, callback);
+registerUser: async (username, password) => {
+    try {
+    const user = await UserModel.createUser(username, password);
+      return user; // Devuelve el usuario creado
+    } catch (error) {
+    throw new Error(`Error registrando usuario: ${error.message}`);
+    }
 },
 
-loginUser: (username, password, callback) => {
-    UserModel.findUser(username, password, callback);
+loginUser: async (username, password) => {
+    try {
+    const user = await UserModel.findUser(username, password);
+    if (!user) {
+        throw new Error('Usuario no encontrado o contraseña incorrecta');
+    }
+      return user; // Devuelve el usuario encontrado
+    } catch (error) {
+    throw new Error(`Error al iniciar sesión: ${error.message}`);
+    }
 }
 };
 
